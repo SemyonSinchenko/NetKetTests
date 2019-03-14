@@ -39,7 +39,7 @@ class Heisenberg1d(object):
         """
 
         assert (self.graph != None), 'At first you need to define graph!'
-        self.hilbert = nk.hilbert.Spin(graph=self.graph, s=0.5)
+        self.hilbert = nk.hilbert.Spin(graph=self.graph, s=1)
 
     def get_hamiltonian(self):
         """
