@@ -1,7 +1,5 @@
+from mpi4py import MPI # Dark magic? What is it?
 import netket as nk
-import numpy as np
-import matplotlib.pyplot as plt
-
 
 class Heisenberg1d(object):
     def __init__(self, n_spins, J):
