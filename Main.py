@@ -1,5 +1,6 @@
 from python.src.Heisenberg1d import Heisenberg1d
 from python.src.Argparser import get_parser
+from mpi4py import MPI # Dark magic? What is it?
 
 if __name__ == '__main__':
     parser = get_parser()
