@@ -39,7 +39,7 @@ class Heisenberg1d(object):
         """
 
         assert (self.graph != None), 'At first you need to define graph!'
-        self.hilbert = nk.hilbert.Spin(graph=self.graph, s=1)
+        self.hilbert = nk.hilbert.Spin(graph=self.graph, s=0.5, total_sz=0)
 
     def get_hamiltonian(self):
         """
@@ -60,7 +60,7 @@ class Heisenberg1d(object):
 
         assert (self.hilbert != None), 'At first you need to define Hilbert space!'
         self.machine = nk.machine.RbmSpin(hilbert=self.hilbert, alpha=4)
-        self.machine.init_random_parameters(seed=42, sigma=0.05)
+        self.machine.init_random_parameters(seed=42, sigma=0.01)
 
     def get_sampler(self):
         """
