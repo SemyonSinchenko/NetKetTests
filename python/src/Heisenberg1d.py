@@ -103,3 +103,12 @@ class Heisenberg1d(object):
         )
 
         self.vc.run(output_prefix=output, n_iter=1000, save_params_every=10)
+
+    def get_exact(self):
+        """
+        Get exact ground-state energy.
+        :return: exact_energy
+        """
+
+        exact = nk.exact.lanczos_ed(self.hamiltonian, first_n=1, compute_eigenvectors=True)
+        return exact.eigenvalues[0]
