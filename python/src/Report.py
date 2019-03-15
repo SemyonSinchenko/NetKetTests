@@ -64,7 +64,7 @@ def generate_report(input_file, outdir='plots'):
     f.tight_layout()
 
     f.savefig(os.path.join(outdir, 'results.png'), dpi=300)
-    f.close()
+    plt.close(f)
 
 
 
