@@ -1,16 +1,16 @@
-from mpi4py import MPI # Dark magic? What is it?
 import netket as nk
 
-class Heisenberg1d(object):
-    def __init__(self, n_spins, J):
+class Ising(object):
+    def __init__(self, n_spins, J, h):
         """
         Create the model.
         :param n_spins: the number of spins
-        :param J: coupling constant
+        :param J: JZ in the model
+        :param h: h in the model
         """
 
         self.n_spins = n_spins
-        self.J = J
+        self.h = h;
 
         self.get_graph()
         self.get_hilbert_space()
@@ -28,7 +28,7 @@ class Heisenberg1d(object):
         :return: None
         """
 
-        self.graph = nk.graph.Hypercube(length=40, n_dim=1, pbc=True)
+        self.graph = nk.graph.Hypercube(length=self.n_spins, n_dim=1, pbc=True)
 
     def get_hilbert_space(self):
         """
@@ -39,16 +39,16 @@ class Heisenberg1d(object):
         """
 
         assert (self.graph != None), 'At first you need to define graph!'
-        self.hilbert = nk.hilbert.Spin(graph=self.graph, s=0.5, total_sz=0)
+        self.hilbert = nk.hilbert.Spin(graph=self.graph, s=1, total_sz=0)
 
     def get_hamiltonian(self):
         """
-        Create the Hesenberg1d hamiltonian operator
+        Create the Ising hamiltonian operator
         :return: None
         """
 
         assert (self.hilbert != None), 'At first you need to define Hilbert space!'
-        self.hamiltonian = nk.operator.Heisenberg(hilbert=self.hilbert)
+        self.hamiltonian = nk.operator.Ising(hilbert=self.hilbert, h=self.h, J=self.j)
 
     def get_machine(self):
         """
@@ -98,7 +98,7 @@ class Heisenberg1d(object):
             hamiltonian=self.hamiltonian,
             sampler=self.sampler,
             optimizer=self.opt,
-            n_samples=1000,
+            n_samples=500,
             use_iterative=True
         )
 

@@ -1,6 +1,6 @@
-from python.src.Heisenberg1d import Heisenberg1d
+from python.src.Ising import Ising
 from python.src.Report import generate_report
-from python.src.Argparser import get_parser
+from python.src.ArgparserH import get_parser
 
 if __name__ == '__main__':
     parser = get_parser()
@@ -8,7 +8,7 @@ if __name__ == '__main__':
         args = parser.parse_args()
     except:
         parser.print_help()
-    model = Heisenberg1d(n_spins=40, J=1)
+    model = Ising(n_spins=args.n_spins, j=args.j_z, h=args.h_const)
     model.fit(args.output, args.n_iter)
 
     generate_report(args.output + '.log')

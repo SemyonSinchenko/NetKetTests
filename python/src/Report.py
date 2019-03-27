@@ -65,6 +65,3 @@ def generate_report(input_file, outdir='plots'):
 
     f.savefig(os.path.join(outdir, 'results.png'), dpi=300)
     plt.close(f)
-
-
-

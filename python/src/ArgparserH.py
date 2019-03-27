@@ -15,9 +15,17 @@ def get_parser():
                         help='The number of spins',
                         required=False, nargs='?',
                         default=40, type=int)
-    parser.add_argument('--j-coupling', '-j',
-                        help='Coupling constant of model',
-                        required=False, type=float,
-                        nargs='?', default=1.0)
+    parser.add_argument('--n_dims', '-d',
+                        help='The number of dimensions',
+                        required=False, nargs='?',
+                        default=1, type=int)
+    parser.add_argument('--j_z', '-j',
+                        help='The J constant',
+                        required=False, nargs='?',
+                        default=1, type=int)
+    parser.add_argument('--h_const',
+                        help='The h constant',
+                        required=False, nargs='?',
+                        default=1, type=int)
 
     return parser
