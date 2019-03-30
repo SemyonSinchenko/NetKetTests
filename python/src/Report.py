@@ -98,7 +98,7 @@ def save_results(input_file, prefix, params=[], outfile='results.txt'):
     res_string += str(energy_mean[-1]) + ','
     res_string += str(energy_sigma[-1]) + ','
     res_string += str(variance_mean[-1]) + ','
-    res_string += str(variance_sigma[-1])
+    res_string += str(variance_sigma[-1]) + "\n"
 
     with open(outfile, 'a+') as f:
         f.write(res_string)
