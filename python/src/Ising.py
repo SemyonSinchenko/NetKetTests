@@ -29,7 +29,7 @@ class Ising(object):
         :return: None
         """
 
-        self.graph = nk.graph.Hypercube(length=self.n_spins, n_dim=0.5, pbc=True)
+        self.graph = nk.graph.Hypercube(length=self.n_spins, n_dim=1, pbc=True)
 
     def get_hilbert_space(self):
         """
