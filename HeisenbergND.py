@@ -8,7 +8,7 @@ if __name__ == '__main__':
         args = parser.parse_args()
     except:
         parser.print_help()
-    model = Heisenberg(n_spins=args.n_spins, n_dims=args.n_dims)
+    model = Heisenberg(n_spins=args.spins, n_dims=args.n_dims)
     model.fit(args.output, args.n_iter)
 
     generate_report(args.output + '.log')
