@@ -65,3 +65,40 @@ def generate_report(input_file, outdir='plots'):
 
     f.savefig(os.path.join(outdir, 'results.png'), dpi=300)
     plt.close(f)
+
+
+def save_results(input_file, prefix, params=[], outfile='results.txt'):
+    '''
+    Save results to csv file.
+    :param input_file: file with result of computations
+    :param prefix: name of model or row
+    :param params: params of model or row
+    :param outfile: csv with result (will be open in append mode)
+    :return: None
+    '''
+    iters = []
+    energy_mean = []
+    energy_sigma = []
+    variance_mean = []
+    variance_sigma = []
+
+    with open(input_file) as f:
+        data = json.load(f)
+
+        for iteration in data['Output']:
+            iters.append(iteration['Iteration'])
+            energy_mean.append(iteration['Energy']['Mean'])
+            energy_sigma.append(iteration['Energy']['Sigma'])
+            variance_mean.append(iteration['EnergyVariance']['Mean'])
+            variance_sigma.append(iteration['EnergyVariance']['Sigma'])
+
+    res_string = prefix + ','
+    for s in params:
+        res_string += str(s) + ','
+    res_string += energy_mean[-1] + ','
+    res_string += energy_sigma[-1] + ','
+    res_string += variance_mean[-1] + ','
+    res_string += variance_sigma[-1]
+
+    with open(outfile, 'a+') as f:
+        f.write(res_string)

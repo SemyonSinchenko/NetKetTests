@@ -11,6 +11,7 @@ class Ising(object):
 
         self.n_spins = n_spins
         self.h = h;
+        self.j = J
 
         self.get_graph()
         self.get_hilbert_space()
