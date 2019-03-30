@@ -22,10 +22,10 @@ def get_parser():
     parser.add_argument('--j_z', '-j',
                         help='The J constant',
                         required=False, nargs='?',
-                        default=1, type=int)
+                        default=1, type=float)
     parser.add_argument('--h_const',
                         help='The h constant',
                         required=False, nargs='?',
-                        default=1, type=int)
+                        default=1, type=float)
 
     return parser
