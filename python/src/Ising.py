@@ -103,7 +103,7 @@ class Ising(object):
             use_iterative=True
         )
 
-        self.vc.run(output_prefix=output, n_iter=1000, save_params_every=10)
+        self.vc.run(output_prefix=output, n_iter=n_iter, save_params_every=10)
 
     def get_exact(self):
         """

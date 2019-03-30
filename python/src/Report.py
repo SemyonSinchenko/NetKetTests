@@ -95,10 +95,10 @@ def save_results(input_file, prefix, params=[], outfile='results.txt'):
     res_string = prefix + ','
     for s in params:
         res_string += str(s) + ','
-    res_string += energy_mean[-1] + ','
-    res_string += energy_sigma[-1] + ','
-    res_string += variance_mean[-1] + ','
-    res_string += variance_sigma[-1]
+    res_string += str(energy_mean[-1]) + ','
+    res_string += str(energy_sigma[-1]) + ','
+    res_string += str(variance_mean[-1]) + ','
+    res_string += str(variance_sigma[-1])
 
     with open(outfile, 'a+') as f:
         f.write(res_string)
