@@ -12,4 +12,6 @@ if __name__ == '__main__':
     model.fit(args.output, args.n_iter)
 
     #generate_report(args.output + '.log')
-    save_results(args.output + '.log', params=[args.spins, args.j_z, args.h_const], prefix="ising")
+    save_results(args.output + '.log',
+                 params=[args.spins, args.j_z, args.h_const],
+                 prefix="ising", outfile="IsingResults.csv")
