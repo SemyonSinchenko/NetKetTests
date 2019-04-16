@@ -1,10 +1,10 @@
 #%%
 import pandas as pd
-import matplotlib.pyplot as plt
+import pylab
 
 
 #%%
-res = pd.read_csv("IsingResults.csv",
+res = pd.read_csv("IsingResultsFull.csv",
                   header=None,
                   names=[
                       "prefix", "n_spins",
@@ -19,10 +19,6 @@ res = res.drop_duplicates()
 #%%
 tmp_res = res[res["meanEnergy"].apply(lambda x: x != "None")]
 tmp_res["meanEnergy"] = tmp_res["meanEnergy"].astype(float)
-plt.plot(tmp_res["h"] / tmp_res["JZ"], -tmp_res["meanEnergy"] / (tmp_res["n_spins"] * tmp_res["JZ"]), ".-")
-plt.xlabel("h / JZ")
-plt.ylabel("E / (n_spins * JZ)")
-plt.show()
 
 #%%
 
@@ -31,11 +27,22 @@ tmp_res.to_csv("cleanResultsIsingFirst.csv", index=False)
 
 #%%
 
-plt.plot(tmp_res["h"] / tmp_res["JZ"], -tmp_res["meanEnergy"] / (tmp_res["n_spins"] * tmp_res["JZ"]), ".-")
-plt.xlabel("h / JZ")
-plt.ylabel("E / (n_spins * JZ)")
-plt.xlim(0, 10)
-plt.ylim(0, 10)
-plt.show()
+pylab.figure(figsize=(6, 4))
+pylab.style.use("ggplot")
+
+for i, spins in enumerate(tmp_res["n_spins"].unique()):
+    _slice_ = tmp_res[tmp_res["n_spins"] == spins]
+    pylab.scatter(_slice_["h"] / _slice_["JZ"],
+                  -_slice_["meanEnergy"] / (_slice_["n_spins"] * _slice_["JZ"]), label="N spins = %d" % spins,
+                  alpha=0.7, s=6)
+
+pylab.xlabel(r"$\frac{h}{J_z}$")
+pylab.ylabel(r"$-\frac{E}{N\times{J_z}}$")
+pylab.xlim(0, 12)
+pylab.ylim(0, 12)
+pylab.legend()
+pylab.tight_layout()
+pylab.savefig("DifferentNSpins.png", dpi=300)
+pylab.show()
 
 #%%
