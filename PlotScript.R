@@ -28,3 +28,15 @@ f <- ggplot(df_clean, aes(x = x, y = y, colour = n_spins)) +
 print(f)
 
 ggsave("plots/IsingOutputOfModelling.png", f, width = 12, height = 6)
+
+f_s <- ggplot(df_clean, aes(x = x, y = y, colour = n_spins)) +
+    geom_point() +
+    stat_smooth(method = "loess", se = F) +
+    xlim(0, 1) +
+    ylim(0, 4) +
+    xlab(TeX("$\\frac{h}{J_z}$")) +
+    ylab(TeX("$-\\frac{E}{N\\times J_z}$"))
+
+print(f_s)
+
+ggsave("plots/IsingOutputOfModelling_lowH.png", f_s, width = 12, height = 6)
