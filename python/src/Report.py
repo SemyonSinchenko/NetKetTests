@@ -1,5 +1,6 @@
 import json
 import os
+import pathlib
 import scipy.stats as sp
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -112,7 +113,7 @@ def save_results(input_file, prefix, params=[], outfile='results.txt', outfolder
     outfolder_name += "_folder"
 
     prefix_path = os.path.join(outfolder, outfolder)
-    os.mkdir(prefix_path)
+    pathlib.Path(prefix_path).mkdir(parents=True, exist_ok=True)
     results_df.to_csv(os.path.join(prefix_path, "Data.csv"), index=False)
     # Create plots
     f, ax = plt.subplots(nrows=1, ncols=2, figsize=(16, 5))
