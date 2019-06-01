@@ -112,7 +112,7 @@ def save_results(input_file, prefix, params=[], outfile='results.txt', outfolder
         outfolder_name += str(s) + "_"
     outfolder_name += "_folder"
 
-    prefix_path = os.path.join(outfolder, outfolder)
+    prefix_path = os.path.join(outfolder, outfolder_name)
     pathlib.Path(prefix_path).mkdir(parents=True, exist_ok=True)
     results_df.to_csv(os.path.join(prefix_path, "Data.csv"), index=False)
     # Create plots
