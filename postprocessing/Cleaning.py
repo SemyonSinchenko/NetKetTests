@@ -14,6 +14,13 @@ res = pd.read_csv("IsingResultsFull.csv",
                   ])
 
 #%%
+naCols = res.isna().sum()
+naCols = naCols[naCols > 0]
+
+#%%
+print(naCols)
+
+#%%
 res = res.drop_duplicates()
 
 #%%

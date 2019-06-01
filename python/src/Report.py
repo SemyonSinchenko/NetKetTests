@@ -67,7 +67,7 @@ def generate_report(input_file, outdir='plots'):
     plt.close(f)
 
 
-def save_results(input_file, prefix, params=[], outfile='results.txt'):
+def save_results(input_file, prefix, params=[], outfile='results.txt', outfolder="ising"):
     '''
     Save results to csv file.
     :param input_file: file with result of computations
@@ -91,6 +91,55 @@ def save_results(input_file, prefix, params=[], outfile='results.txt'):
             energy_sigma.append(iteration['Energy']['Sigma'])
             variance_mean.append(iteration['EnergyVariance']['Mean'])
             variance_sigma.append(iteration['EnergyVariance']['Sigma'])
+
+    p95 = sp.distributions.norm().ppf(0.975)
+
+    results_df = pd.DataFrame(
+        dict(
+            iter=iters,
+            e=energy_mean,
+            e_std=energy_sigma,
+            e_err95=[e * p95 for e in energy_sigma],
+            e_var=variance_mean,
+            e_var_std=variance_sigma,
+            e_var_err95=[e * p95 for e in variance_sigma]
+        )
+    )
+
+    outfolder_name = "Run_"
+    for s in params:
+        outfolder_name += str(s) + "_"
+    outfolder_name += "_folder"
+
+    prefix_path = os.path.join(outfolder, outfolder)
+    os.mkdir(prefix_path)
+    results_df.to_csv(os.path.join(prefix_path, "Data.csv"), index=False)
+    # Create plots
+    f, ax = plt.subplots(nrows=1, ncols=2, figsize=(16, 5))
+    ax[0].errorbar(
+        results_df['iter'],
+        results_df['e'],
+        yerr=results_df['e_err95'],
+        color='red'
+    )
+    ax[0].set_xlabel('Iteration')
+    ax[0].set_ylabel('Energy')
+    ax[0].set_title('Energy by iterations')
+
+    ax[1].errorbar(
+        results_df['iter'],
+        results_df['e_var'],
+        yerr=results_df['e_var_err95'],
+        color='red'
+    )
+    ax[1].set_xlabel('Iteration')
+    ax[1].set_ylabel('Variance')
+    ax[1].set_title('Variance of energy by iterations')
+
+    f.tight_layout()
+
+    f.savefig(os.path.join(prefix_path, 'FittingCurve.png'), dpi=200)
+    plt.close(f)
 
     res_string = prefix + ','
     for s in params:
