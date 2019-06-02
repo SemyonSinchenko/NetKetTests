@@ -12583,3 +12583,21 @@
 # Using the Stochastic reconfiguration method
 # With iterative solver
 # Variational Monte Carlo running on 8 processes
+# Transverse-Field Ising model created 
+# h = 53
+# J = 1
+# RBM Initizialized with nvisible = 40 and nhidden = 160
+# Using visible bias = 1
+# Using hidden bias  = 1
+# Metropolis sampler with parallel tempering is ready 
+# 12 replicas are being used
+# 1 is the maximum distance for exchanges
+# Momentum optimizer initialized with these parameters :
+# Learning Rate = 0.01
+# Beta = 0.9
+# Using the Stochastic reconfiguration method
+# With iterative solver
+# Variational Monte Carlo running on 8 processes
+[mpiexec@q1netket] Sending Ctrl-C to processes as requested
+[mpiexec@q1netket] Press Ctrl-C again to force abort
+Ctrl-C caught... cleaning up processes
