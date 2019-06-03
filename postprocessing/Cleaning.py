@@ -2,7 +2,6 @@
 import pandas as pd
 import pylab
 
-
 #%%
 res = pd.read_csv("IsingResultsFull.csv",
                   header=None,
