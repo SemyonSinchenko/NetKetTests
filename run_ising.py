@@ -12,7 +12,7 @@ if __name__ == "__main__":
     for spins in N_SPINS:
         for h in H_CONST:
             model = Ising(n_spins=spins, J=JZ_CONST, h=h)
-            model.fit("output", 800)
+            model.fit("output", 700)
             exact = model.get_exact()
             save_results("output" + '.log',
                          prefix="ising",

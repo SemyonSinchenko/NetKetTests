@@ -79,7 +79,7 @@ class Ising(object):
             machine=self.machine,
             graph=self.graph,
             d_max=1,
-            n_replicas=12
+            n_replicas=8
         )
 
     def get_optimizer(self):
@@ -102,7 +102,7 @@ class Ising(object):
             hamiltonian=self.hamiltonian,
             sampler=self.sampler,
             optimizer=self.opt,
-            n_samples=1000,
+            n_samples=700,
             use_iterative=True
         )
 
