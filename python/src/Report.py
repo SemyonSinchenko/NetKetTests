@@ -1,6 +1,7 @@
 import json
 import os
 import pathlib
+import shutil
 import scipy.stats as sp
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -69,7 +70,7 @@ def generate_report(input_file, outdir="plots"):
     plt.close(f)
 
 
-def save_results(input_file, prefix, exact, params=[], outfile="results.txt", outfolder="ising"):
+def save_results(input_file, prefix, exact, observable, params=[], outfile="results.txt", outfolder="ising"):
     """
     Save results to csv file.
     :param input_file: file with result of computations
@@ -78,6 +79,7 @@ def save_results(input_file, prefix, exact, params=[], outfile="results.txt", ou
     :param params: params of model or row
     :param outfile: csv with result (will be open in append mode)
     :param outfolder: folder prefix
+    :param observable:
     :return: None
     """
     iters = []
@@ -86,7 +88,7 @@ def save_results(input_file, prefix, exact, params=[], outfile="results.txt", ou
     variance_mean = []
     variance_sigma = []
 
-    with open(input_file) as f:
+    with open(input_file + ".log") as f:
         data = json.load(f)
 
         for iteration in data["Output"]:
@@ -118,6 +120,12 @@ def save_results(input_file, prefix, exact, params=[], outfile="results.txt", ou
 
     prefix_path = os.path.join(outfolder, outfolder_name)
     pathlib.Path(prefix_path).mkdir(parents=True, exist_ok=True)
+
+    shutil.copy(input_file + ".wf", os.path.join(prefix_path, "WaveFunction.wf"))
+
+    with open(os.path.join(prefix_path, "observable.data"), "w") as f:
+        f.write(str(observable))
+
     results_df.to_csv(os.path.join(prefix_path, "Data.csv"), index=False)
     # Create plots
     f, ax = plt.subplots(nrows=1, ncols=2, figsize=(16, 5))

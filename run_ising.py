@@ -14,8 +14,11 @@ if __name__ == "__main__":
             model = Ising(n_spins=spins, J=JZ_CONST, h=h)
             model.fit("output", 700)
             exact = model.get_exact()
-            save_results("output" + '.log',
+            obs = model.get_observable()
+            save_results("output",
                          prefix="ising",
                          exact=exact,
                          params=[spins, JZ_CONST, h],
-                         outfile="IsingResultsFull.csv", outfolder="IsingRun")
+                         outfile="IsingResultsFull.csv",
+                         outfolder="IsingRun",
+                         observable=obs)

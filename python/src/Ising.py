@@ -116,3 +116,10 @@ class Ising(object):
 
         exact = nk.exact.lanczos_ed(self.hamiltonian, first_n=1, compute_eigenvectors=True)
         return exact.eigenvalues[0]
+
+    def get_observable(self):
+        """
+        Get observable values of operator.
+        :return:
+        """
+        return self.vc.get_observable_stats()
