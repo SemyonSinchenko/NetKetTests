@@ -69,12 +69,11 @@ def generate_report(input_file, outdir="plots"):
     plt.close(f)
 
 
-def save_results(input_file, prefix, num_iter, exact, params=[], outfile="results.txt", outfolder="ising"):
+def save_results(input_file, prefix, exact, params=[], outfile="results.txt", outfolder="ising"):
     """
     Save results to csv file.
     :param input_file: file with result of computations
     :param prefix: name of model or row
-    :param num_iter: number of iteration (if greater than one)
     :param exact: exact diagonalization results
     :param params: params of model or row
     :param outfile: csv with result (will be open in append mode)
@@ -119,7 +118,7 @@ def save_results(input_file, prefix, num_iter, exact, params=[], outfile="result
 
     prefix_path = os.path.join(outfolder, outfolder_name)
     pathlib.Path(prefix_path).mkdir(parents=True, exist_ok=True)
-    results_df.to_csv(os.path.join(prefix_path, "Data_iter_{}.csv".format(num_iter)), index=False)
+    results_df.to_csv(os.path.join(prefix_path, "Data.csv"), index=False)
     # Create plots
     f, ax = plt.subplots(nrows=1, ncols=2, figsize=(16, 5))
     ax[0].errorbar(
@@ -147,7 +146,7 @@ def save_results(input_file, prefix, num_iter, exact, params=[], outfile="result
 
     f.tight_layout()
 
-    f.savefig(os.path.join(prefix_path, "FittingCurve_iter_{}.png".format(num_iter)), dpi=200)
+    f.savefig(os.path.join(prefix_path, "FittingCurve.png"), dpi=200)
     plt.close(f)
 
     res_string = prefix + ","
