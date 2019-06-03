@@ -60,7 +60,10 @@ class Ising(object):
         """
 
         assert (self.hilbert != None), 'At first you need to define Hilbert space!'
-        self.machine = nk.machine.RbmSpin(hilbert=self.hilbert, alpha=4)
+        if self.n_spins > 10:
+            self.machine = nk.machine.RbmSpin(hilbert=self.hilbert, alpha=4)
+        else:
+            self.machine = nk.machine.RbmSpin(hilbert=self.hilbert, n_hidden=40)
         self.machine.init_random_parameters(seed=42, sigma=0.01)
 
     def get_sampler(self):
