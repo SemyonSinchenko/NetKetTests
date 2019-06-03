@@ -16,5 +16,8 @@ if __name__ == "__main__":
                 model.fit("output", 400)
                 exact = model.get_exact()
                 save_results("output" + '.log',
+                             prefix="ising",
+                             num_iter=i,
+                             exact=exact,
                              params=[spins, JZ_CONST, h],
-                             prefix="ising", outfile="IsingResultsFull.csv", outfolder="IsingRun")
+                             outfile="IsingResultsFull.csv", outfolder="IsingRun")
