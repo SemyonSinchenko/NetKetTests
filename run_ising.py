@@ -12,7 +12,7 @@ if __name__ == "__main__":
     for spins in N_SPINS:
         for h in H_CONST:
             model = Ising(n_spins=spins, J=JZ_CONST, h=h)
-            model.fit("output", 2000)
+            model.fit("output", 3000)
             exact = model.get_exact()
             obs = model.get_observable()
             save_results("output",
