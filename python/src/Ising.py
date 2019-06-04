@@ -10,7 +10,7 @@ class Ising(object):
         """
 
         self.n_spins = n_spins
-        self.h = h;
+        self.h = h
         self.j = J
 
         self.get_graph()
@@ -88,7 +88,7 @@ class Ising(object):
         :return: None
         """
 
-        self.opt = nk.optimizer.Momentum(learning_rate=1e-3, beta=0.9)
+        self.opt = nk.optimizer.Momentum(learning_rate=0.0005, beta=0.9)
 
     def fit(self, output, n_iter):
         """
@@ -114,7 +114,7 @@ class Ising(object):
         :return: exact_energy
         """
 
-        exact = nk.exact.lanczos_ed(self.hamiltonian, first_n=1, compute_eigenvectors=True)
+        exact = nk.exact.lanczos_ed(self.hamiltonian, first_n=1, compute_eigenvectors=False)
         return exact.eigenvalues[0]
 
     def get_observable(self):
