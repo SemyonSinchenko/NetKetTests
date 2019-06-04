@@ -88,7 +88,7 @@ class Ising(object):
         :return: None
         """
 
-        self.opt = nk.optimizer.Momentum(learning_rate=1e-3, beta=0.9)
+        self.opt = nk.optimizer.Sgd(learning_rate=0.003)
 
     def fit(self, output, n_iter):
         """
@@ -102,7 +102,7 @@ class Ising(object):
             hamiltonian=self.hamiltonian,
             sampler=self.sampler,
             optimizer=self.opt,
-            n_samples=800,
+            n_samples=1000,
             use_iterative=True
         )
 
