@@ -61,10 +61,10 @@ class Ising(object):
 
         assert (self.hilbert != None), 'At first you need to define Hilbert space!'
         if self.n_spins > 10:
-            self.machine = nk.machine.RbmSpin(hilbert=self.hilbert, alpha=4)
+            self.machine = nk.machine.RbmSpin(hilbert=self.hilbert, alpha=2)
         else:
-            self.machine = nk.machine.RbmSpin(hilbert=self.hilbert, n_hidden=40)
-        self.machine.init_random_parameters(seed=42, sigma=0.01)
+            self.machine = nk.machine.RbmSpin(hilbert=self.hilbert, n_hidden=20)
+        self.machine.init_random_parameters(sigma=0.01)
 
     def get_sampler(self):
         """
@@ -87,7 +87,7 @@ class Ising(object):
         Create optimizer
         :return: None
         """
-
+        
         self.opt = nk.optimizer.Momentum(learning_rate=0.001, beta=0.9)
 
     def fit(self, output, n_iter):
@@ -102,7 +102,7 @@ class Ising(object):
             hamiltonian=self.hamiltonian,
             sampler=self.sampler,
             optimizer=self.opt,
-            n_samples=700,
+            n_samples=1000,
             use_iterative=True
         )
 
