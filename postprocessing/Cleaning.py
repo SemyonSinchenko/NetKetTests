@@ -9,7 +9,7 @@ res = pd.read_csv("IsingResultsFull.csv",
                       "prefix", "n_spins",
                       "JZ", "h", "meanEnergy",
                       "stdEnergy", "meanEnergyVariance",
-                      "stdEnergyVariance"
+                      "stdEnergyVariance", "exact"
                   ])
 
 #%%
@@ -39,13 +39,15 @@ pylab.style.use("ggplot")
 for i, spins in enumerate(tmp_res["n_spins"].unique()):
     _slice_ = tmp_res[tmp_res["n_spins"] == spins]
     pylab.scatter(_slice_["h"] / _slice_["JZ"],
-                  -_slice_["meanEnergy"] / (_slice_["n_spins"] * _slice_["JZ"]), label="N spins = %d" % spins,
+                  -_slice_["meanEnergy"] / (_slice_["n_spins"] * _slice_["JZ"]), label="N spins = %d (fitted)" % spins,
                   alpha=0.7, s=6)
+    pylab.plot(_slice_["h"] / _slice_["JZ"],
+                  -_slice_["exact"] / (_slice_["n_spins"] * _slice_["JZ"]), "x", label="N spins = %d (exact)" % spins)
 
 pylab.xlabel(r"$\frac{h}{J_z}$")
 pylab.ylabel(r"$-\frac{E}{N\times{J_z}}$")
-pylab.xlim(0, 12)
-pylab.ylim(0, 12)
+pylab.xlim(0, 2)
+pylab.ylim(0, 6)
 pylab.legend()
 pylab.tight_layout()
 pylab.savefig("DifferentNSpins.png", dpi=300)
