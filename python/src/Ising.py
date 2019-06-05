@@ -88,7 +88,7 @@ class Ising(object):
         :return: None
         """
 
-        self.opt = nk.optimizer.Momentum(learning_rate=0.0005, beta=0.9)
+        self.opt = nk.optimizer.Momentum(learning_rate=0.001, beta=0.9)
 
     def fit(self, output, n_iter):
         """

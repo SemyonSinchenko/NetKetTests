@@ -3,8 +3,8 @@ from python.src.Report import save_results
 import numpy as np
 
 # PARAMS
-H_RANGE = np.linspace(2, 300, 40) + np.linspace(0, 1, 20).tolist()
-N_SPINS = [4, 6, 8, 10, 12, 14, 16, 18]
+H_RANGE = np.linspace(2, 300, 40) + np.linspace(0, 1, 50).tolist()
+N_SPINS = [4, 6, 8, 10, 12]
 JZ_CONST = 1
 H_CONST = [JZ_CONST * coef for coef in H_RANGE]
 
