@@ -40,7 +40,7 @@ class Ising(object):
         """
 
         assert (self.graph != None), 'At first you need to define graph!'
-        self.hilbert = nk.hilbert.Spin(graph=self.graph, s=1, total_sz=0)
+        self.hilbert = nk.hilbert.Spin(graph=self.graph, s=0.5, total_sz=0)
 
     def get_hamiltonian(self):
         """
@@ -60,10 +60,10 @@ class Ising(object):
         """
 
         assert (self.hilbert != None), 'At first you need to define Hilbert space!'
-        if self.n_spins > 10:
-            self.machine = nk.machine.RbmSpin(hilbert=self.hilbert, alpha=2)
+        if self.n_spins > 8:
+            self.machine = nk.machine.RbmSpin(hilbert=self.hilbert, alpha=4)
         else:
-            self.machine = nk.machine.RbmSpin(hilbert=self.hilbert, n_hidden=20)
+            self.machine = nk.machine.RbmSpin(hilbert=self.hilbert, n_hidden=30)
         self.machine.init_random_parameters(sigma=0.01)
 
     def get_sampler(self):
@@ -79,7 +79,7 @@ class Ising(object):
             machine=self.machine,
             graph=self.graph,
             d_max=1,
-            n_replicas=8
+            n_replicas=4
         )
 
     def get_optimizer(self):
@@ -88,7 +88,7 @@ class Ising(object):
         :return: None
         """
         
-        self.opt = nk.optimizer.Momentum(learning_rate=0.001, beta=0.9)
+        self.opt = nk.optimizer.Momentum(learning_rate=0.005, beta=0.9)
 
     def fit(self, output, n_iter):
         """
@@ -102,11 +102,11 @@ class Ising(object):
             hamiltonian=self.hamiltonian,
             sampler=self.sampler,
             optimizer=self.opt,
-            n_samples=1000,
+            n_samples=max(self.n_spins * 50, 700),
             use_iterative=True
         )
 
-        self.vc.run(output_prefix=output, n_iter=n_iter, save_params_every=10)
+        self.vc.run(output_prefix=output, n_iter=n_iter, save_params_every=30)
 
     def get_exact(self):
         """
