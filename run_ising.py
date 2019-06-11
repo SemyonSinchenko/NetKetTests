@@ -4,7 +4,7 @@ import numpy as np
 
 # PARAMS
 H_RANGE = np.linspace(2, 300, 40) + np.linspace(0, 1, 50).tolist()
-N_SPINS = [4, 6, 8, 10, 12, 14, 18, 20, 24, 32, 64]
+N_SPINS = [4, 6, 8, 10, 12, 14, 18, 20, 24, 32]
 JZ_CONST = 1
 H_CONST = [JZ_CONST * coef for coef in H_RANGE]
 
@@ -20,6 +20,6 @@ if __name__ == "__main__":
                          prefix="ising",
                          exact=exact,
                          params=[spins, JZ_CONST, h],
-                         outfile="IsingResultsFull.csv",
-                         outfolder="IsingRun",
+                         outfile="/mountV/volume/IsingResultsTable.csv",
+                         outfolder="/mountV/volume/DetailedResults",
                          observable=obs)
