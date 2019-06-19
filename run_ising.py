@@ -10,7 +10,7 @@ H_CONST = [JZ_CONST * coef for coef in H_RANGE]
 
 if __name__ == "__main__":
     for spins in N_SPINS:
-        num_rounds = spins * 20
+        num_rounds = max(spins * 20, 150)
         for h in H_CONST:
             model = Ising(n_spins=spins, J=JZ_CONST, h=h)
             model.fit("output", num_rounds)
