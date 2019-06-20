@@ -1,17 +1,19 @@
 import netket as nk
 
 class Ising(object):
-    def __init__(self, n_spins, J, h):
+    def __init__(self, n_spins, J, h, pb):
         """
         Create the model.
         :param n_spins: the number of spins
         :param J: JZ in the model
         :param h: h in the model
+        :param pb: Periodic Boundary true?
         """
 
         self.n_spins = n_spins
         self.h = h
         self.j = J
+        self.pb = pb
 
         self.get_graph()
         self.get_hilbert_space()
@@ -29,7 +31,7 @@ class Ising(object):
         :return: None
         """
 
-        self.graph = nk.graph.Hypercube(length=self.n_spins, n_dim=1, pbc=True)
+        self.graph = nk.graph.Hypercube(length=self.n_spins, n_dim=1, pbc=self.pb)
 
     def get_hilbert_space(self):
         """
