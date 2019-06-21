@@ -2,3 +2,5 @@
 *.pyc
 *pycache*
 hostfile
+*.csv
+*.png
