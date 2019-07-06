@@ -1,8 +1,8 @@
 #%%
 import pandas as pd
-import pylab
 import netket as nk
 import numpy as np
+from python.src.utils import PlotUtils
 
 #%%
 res_pb_true = pd.read_csv("/home/sem/OneDrive/Documents/Physics/Ising/results/results/IsingResultsTablePB_True.csv",
@@ -73,89 +73,22 @@ exact_arr_pb_false = np.array(exact_pb_false)
 
 #%%
 
-pylab.figure(figsize=(10, 6))
-pylab.style.use("ggplot")
+f = PlotUtils.PlotUtils.getLargeScalePlot(tmp_res.query("pb == 1"), exact_arr_pb_true, "PBC, large scale")
+f.savefig("PBC_largeScalePlot.png", dpi=300)
 
-for i, spins in enumerate(tmp_res["n_spins"].unique()):
-    _slice_0 = tmp_res[(tmp_res["n_spins"] == spins) & (tmp_res["pb"] == 1)]
-    pylab.scatter(_slice_0["h"] / _slice_0["JZ"],
-                  -_slice_0["meanEnergy"] / (_slice_0["n_spins"] * _slice_0["JZ"]),
-                  label="N spins = %d (fitted), PBC=True" % spins,
-                  alpha=0.7, s=7, marker='o')
+f = PlotUtils.PlotUtils.getMediumScalePlot(tmp_res.query("pb == 1"), exact_arr_pb_true, "PBC, medium scale")
+f.savefig("PBC_mediumScalePlot.png", dpi=300)
 
-    _slice_1 = tmp_res[(tmp_res["n_spins"] == spins) & (tmp_res["pb"] == 0)]
-    pylab.scatter(_slice_1["h"] / _slice_1["JZ"],
-                  -_slice_1["meanEnergy"] / (_slice_1["n_spins"] * _slice_1["JZ"]),
-                  label="N spins = %d (fitted), PBC=False" % spins,
-                  alpha=0.7, s=7, marker='x')
-
-pylab.scatter(exact_arr_pb_true[:, 0], -exact_arr_pb_true[:, 1], marker='^', alpha=0.7, s=7, label="Exact solution (PBC=True)")
-pylab.scatter(exact_arr_pb_false[:, 0], -exact_arr_pb_false[:, 1], marker='^', alpha=0.7, s=7, label="Exact solution (PBC=False)")
-pylab.xlabel(r"$\frac{h}{J_z}$")
-pylab.ylabel(r"$-\frac{E}{N\times{J_z}}$")
-pylab.legend()
-pylab.tight_layout()
-pylab.savefig("DifferentNSpinsFull.png", dpi=300)
-pylab.show()
+f = PlotUtils.PlotUtils.getLowScalePlot(tmp_res.query("pb == 1"), exact_arr_pb_true, "PBC, low scale")
+f.savefig("PBC_lowScalePlot.png", dpi=300)
 
 #%%
 
-pylab.figure(figsize=(10, 6))
-pylab.style.use("ggplot")
+f = PlotUtils.PlotUtils.getLargeScalePlot(tmp_res.query("pb == 0"), exact_arr_pb_false, "No PBC, large scale")
+f.savefig("noPBC_largeScalePlot.png", dpi=300)
 
-for i, spins in enumerate(tmp_res["n_spins"].unique()):
-    _slice_0 = tmp_res[(tmp_res["n_spins"] == spins) & (tmp_res["pb"] == 1)]
-    pylab.scatter(_slice_0["h"] / _slice_0["JZ"],
-                  -_slice_0["meanEnergy"] / (_slice_0["n_spins"] * _slice_0["JZ"]),
-                  label="N spins = %d (fitted), PBC=True" % spins,
-                  alpha=0.7, s=7, marker='o')
+f = PlotUtils.PlotUtils.getMediumScalePlot(tmp_res.query("pb == 0"), exact_arr_pb_false, "No PBC, medium scale")
+f.savefig("noPBC_mediumScalePlot.png", dpi=300)
 
-    _slice_1 = tmp_res[(tmp_res["n_spins"] == spins) & (tmp_res["pb"] == 0)]
-    pylab.scatter(_slice_1["h"] / _slice_1["JZ"],
-                  -_slice_1["meanEnergy"] / (_slice_1["n_spins"] * _slice_1["JZ"]),
-                  label="N spins = %d (fitted), PBC=False" % spins,
-                  alpha=0.7, s=7, marker='x')
-
-pylab.scatter(exact_arr_pb_true[:, 0], -exact_arr_pb_true[:, 1], marker='^', alpha=0.7, s=7, label="Exact solution (PBC=True)")
-pylab.scatter(exact_arr_pb_false[:, 0], -exact_arr_pb_false[:, 1], marker='^', alpha=0.7, s=7, label="Exact solution (PBC=False)")
-pylab.xlabel(r"$\frac{h}{J_z}$")
-pylab.ylabel(r"$-\frac{E}{N\times{J_z}}$")
-pylab.legend()
-pylab.xlim(0, 1)
-pylab.ylim(0.7, 2)
-pylab.tight_layout()
-pylab.savefig("DifferentNSpinsLow.png", dpi=300)
-pylab.show()
-
-#%%
-
-#%%
-
-pylab.figure(figsize=(10, 6))
-pylab.style.use("ggplot")
-
-for i, spins in enumerate(tmp_res["n_spins"].unique()):
-    _slice_0 = tmp_res[(tmp_res["n_spins"] == spins) & (tmp_res["pb"] == 1)]
-    pylab.scatter(_slice_0["h"] / _slice_0["JZ"],
-                  -_slice_0["meanEnergy"] / (_slice_0["n_spins"] * _slice_0["JZ"]),
-                  label="N spins = %d (fitted), PBC=True" % spins,
-                  alpha=0.7, s=7, marker='o')
-
-    _slice_1 = tmp_res[(tmp_res["n_spins"] == spins) & (tmp_res["pb"] == 0)]
-    pylab.scatter(_slice_1["h"] / _slice_1["JZ"],
-                  -_slice_1["meanEnergy"] / (_slice_1["n_spins"] * _slice_1["JZ"]),
-                  label="N spins = %d (fitted), PBC=False" % spins,
-                  alpha=0.7, s=7, marker='x')
-
-pylab.scatter(exact_arr_pb_true[:, 0], -exact_arr_pb_true[:, 1], marker='^', alpha=0.7, s=7, label="Exact solution (PBC=True)")
-pylab.scatter(exact_arr_pb_false[:, 0], -exact_arr_pb_false[:, 1], marker='^', alpha=0.7, s=7, label="Exact solution (PBC=False)")
-pylab.xlabel(r"$\frac{h}{J_z}$")
-pylab.ylabel(r"$-\frac{E}{N\times{J_z}}$")
-pylab.legend()
-pylab.xlim(0, 10)
-pylab.ylim(0.7, 10)
-pylab.tight_layout()
-pylab.savefig("DifferentNSpinsLow2.png", dpi=300)
-pylab.show()
-
-#%%
+f = PlotUtils.PlotUtils.getLowScalePlot(tmp_res.query("pb == 0"), exact_arr_pb_false, "No PBC, low scale")
+f.savefig("noPBC_lowScalePlot.png", dpi=300)

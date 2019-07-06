@@ -70,11 +70,12 @@ def generate_report(input_file, outdir="plots"):
     plt.close(f)
 
 
-def save_results(input_file, prefix, observable, params=[], outfile="results.txt", outfolder="ising"):
+def save_results(input_file, prefix, observable, exact, params=[], outfile="results.txt", outfolder="ising"):
     """
     Save results to csv file.
     :param input_file: file with result of computations
     :param prefix: name of model or row
+    :param exact: exact solution by Langzos
     :param params: params of model or row
     :param outfile: csv with result (will be open in append mode)
     :param outfolder: folder prefix
@@ -107,7 +108,8 @@ def save_results(input_file, prefix, observable, params=[], outfile="results.txt
             e_err95=[e * p95 for e in energy_sigma],
             e_var=variance_mean,
             e_var_std=variance_sigma,
-            e_var_err95=[e * p95 for e in variance_sigma]
+            e_var_err95=[e * p95 for e in variance_sigma],
+            exact=np.ones(len(iters)) * exact
         )
     )
 
@@ -134,6 +136,7 @@ def save_results(input_file, prefix, observable, params=[], outfile="results.txt
         label="Learning curve",
         color="red"
     )
+    ax[0].plot(results_df["iter"], results_df["exact"], "--", label="Exact solution")
     ax[0].set_xlabel("Iteration")
     ax[0].set_ylabel("Energy")
     ax[0].set_title("Energy by iterations")

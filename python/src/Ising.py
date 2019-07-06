@@ -81,7 +81,7 @@ class Ising(object):
             machine=self.machine,
             graph=self.graph,
             d_max=1,
-            n_replicas=4
+            n_replicas=12
         )
 
     def get_optimizer(self):
@@ -90,7 +90,7 @@ class Ising(object):
         :return: None
         """
         
-        self.opt = nk.optimizer.Momentum(learning_rate=0.005, beta=0.9)
+        self.opt = nk.optimizer.Momentum(learning_rate=0.008, beta=0.9)
 
     def fit(self, output, n_iter):
         """
